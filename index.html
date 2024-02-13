@@ -6,10 +6,51 @@
     <title>曾毅❤葛璐豪</title>
     <link rel="shortcut icon" href="爱心.png" type="image/x-icon" />
     <style type="text/css">
+      :root {
+        --size: 1.5;
+      }
       body {
         margin: 0;
         overflow: hidden;
         background: #000;
+      }
+      .container {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+      #slider {
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      #slider .img {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transition: left 1s ease;
+      }
+      .img1 {
+        background: url("image1.jpg") no-repeat center;
+        background-size: contain;
+      }
+      .img2 {
+        background: url("image2.jpg") no-repeat center;
+        background-size: contain;
+      }
+      .img3 {
+        background: url("image3.jpg") no-repeat center;
+        background-size: contain;
+      }
+      .img4 {
+        background: url("image4.jpg") no-repeat center;
+        background-size: contain;
       }
 
       canvas {
@@ -27,89 +68,89 @@
 
       @keyframes anim {
         0% {
-          transform: scale(0.8);
+          transform: scale(calc(0.8 * var(--size)));
         }
 
         25% {
-          transform: scale(0.7);
+          transform: scale(calc(0.7 * var(--size)));
         }
 
         50% {
-          transform: scale(1);
+          transform: scale(calc(1 * var(--size)));
         }
 
         75% {
-          transform: scale(0.7);
+          transform: scale(calc(0.7 * var(--size)));
         }
 
         100% {
-          transform: scale(0.8);
+          transform: scale(calc(0.8 * var(--size)));
         }
       }
 
       @-webkit-keyframes anim {
         0% {
-          -webkit-transform: scale(0.8);
+          -webkit-transform: scale(calc(0.8 * var(--size)));
         }
 
         25% {
-          -webkit-transform: scale(0.7);
+          -webkit-transform: scale(calc(0.7 * var(--size)));
         }
 
         50% {
-          -webkit-transform: scale(1);
+          -webkit-transform: scale(calc(1 * var(--size)));
         }
 
         75% {
-          -webkit-transform: scale(0.7);
+          -webkit-transform: scale(calc(0.7 * var(--size)));
         }
 
         100% {
-          -webkit-transform: scale(0.8);
+          -webkit-transform: scale(calc(0.8 * var(--size)));
         }
       }
 
       @-o-keyframes anim {
         0% {
-          -o-transform: scale(0.8);
+          -o-transform: scale(calc(0.8 * var(--size)));
         }
 
         25% {
-          -o-transform: scale(0.7);
+          -o-transform: scale(calc(0.7 * var(--size)));
         }
 
         50% {
-          -o-transform: scale(1);
+          -o-transform: scale(calc(1 * var(--size)));
         }
 
         75% {
-          -o-transform: scale(0.7);
+          -o-transform: scale(calc(0.7 * var(--size)));
         }
 
         100% {
-          -o-transform: scale(0.8);
+          -o-transform: scale(calc(0.8 * var(--size)));
         }
       }
 
       @-moz-keyframes anim {
         0% {
-          -moz-transform: scale(0.8);
+          -moz-transform: scale(calc(0.8 * var(--size)));
         }
 
         25% {
-          -moz-transform: scale(0.7);
+          -moz-transform: scale(calc(0.7 * var(--size)));
         }
 
         50% {
-          -moz-transform: scale(1);
+          -moz-transform: scale(calc(1 * var(--size)));
         }
 
         75% {
-          -moz-transform: scale(0.7);
+          -moz-transform: scale(calc(0.7 * var(--size)));
         }
 
         100% {
-          -moz-transform: scale(0.8);
+          -moz-transform: scale(calc(0.8 * var(--size)));
         }
       }
 
@@ -126,10 +167,35 @@
   </head>
 
   <body>
-    <canvas id="pinkboard" width="1920" height="947"></canvas>
+    <div class="container">
+      <div id="slider">
+        <div class="img img1" style="left: 0"></div>
+        <div class="img img2" style="left: 100%"></div>
+        <div class="img img3" style="left: 200%"></div>
+        <div class="img img4" style="left: 300%"></div>
+      </div>
+      <canvas id="pinkboard" width="1920" height="947"></canvas>
 
-    <canvas id="canvas" width="1920" height="947"></canvas>
+      <canvas id="canvas" width="1920" height="947"></canvas>
+    </div>
+    <script>
+      window.onload = function () {
+        const slider = document.getElementById("slider");
+        const images = slider.getElementsByClassName("img");
+        let currentIndex = 0;
 
+        setInterval(() => {
+          currentIndex = (currentIndex + 1) % images.length;
+          moveSlider();
+        }, 2000); // 2000 milliseconds = 2 seconds
+
+        function moveSlider() {
+          for (let i = 0; i < images.length; i++) {
+            images[i].style.left = `${(i - currentIndex) * 100}%`;
+          }
+        }
+      };
+    </script>
     <script type="text/javascript">
       const texts = [
         "曾毅，我喜欢你",
@@ -492,7 +558,14 @@
           image.src = canvas.toDataURL();
           return image;
         })();
-
+        /*         var backgroundImage1 = new Image();
+        backgroundImage.src = "one.jpg"; // 图片的路径
+        var backgroundImage2 = new Image();
+        backgroundImage.src = "two.jpg"; // 图片的路径
+        var backgroundImage3 = new Image();
+        backgroundImage.src = "three.jpg"; // 图片的路径
+        var backgroundImage4 = new Image();
+        backgroundImage.src = "four.jpg"; // 图片的路径 */
         // render that thing!
         function render() {
           // next animation frame
